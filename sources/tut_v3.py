@@ -24,9 +24,17 @@ label_df= df1.drop(['longitude','latitude'], axis=1)
 
 feature_df['neighbours'] = 0 # new column with 0
 
-
 #print(df1.isnull().any())
 #pprint.pprint(feature_df)
+      
+regr = linear_model.LinearRegression()
+regr.fit(feature_df, label_df)
+
+
+#print(regr.predict([[52.4321,13.3210]]).tolist())# test mit ausgedachter Breite und Länge
+
+####################################
+
 #Funktion soll Anzahl der Restaurants in der Nähe (<500m) zurückgeben
 def neighbours(latitude,longitude):
     count =0
@@ -52,12 +60,7 @@ def neighbours(latitude,longitude):
 #        if (geopy.distance.distance(coordinates1,coordinates2).km < 0.5):
 #            count+=1
 #    feature_df.at[x,'neighbours']=count 
-    
-    
-regr = linear_model.LinearRegression()
-regr.fit(feature_df, label_df)
-
-print(regr.predict([[52.4321,13.3210]],neighbours(52.4321,13.3210)).tolist())# test mit ausgedachter Breite und Länge
+print(regr.predict([[52.4321,13.3210]],neighbours(52.4321,13.3210)).tolist())
 
 # kein Plan was der Code hier unten macht
 
