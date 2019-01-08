@@ -30,16 +30,18 @@ alle = alle.drop(['rating'], axis=1)
 df = pd.read_csv(r'C:\Users\max\Downloads\test3.csv')
 df1= df.drop(['price','name','review_count'], axis=1)#useless columns
 df1.columns = ['latitude', 'longitude','rating']#rename
-df1 = df1.dropna()#drop NaN rows
 
 feature_df = df1.drop('rating', axis=1)
 label_df= df1.drop(['longitude','latitude'], axis=1)
 
 feature_df['neighbours'] = 0 # new column with 0
 feature_df['categories'] = alle['categories'].copy()
+feature_df.dropna()
 feature_df['koreanneigbours'] = 0
 feature_df['italianneigbhours'] = 0
-feature_df.dropna()
+feature_df['vietnameseneigbhours'] = 0
+feature_df['japaneseneigbhours'] = 0
+
 
 feature_df1 = feature_df[0:100]
 
@@ -51,7 +53,30 @@ feature_df1 = feature_df[0:100]
 
 
 #print(regr.predict([[52.4321,13.3210]]).tolist())# test mit ausgedachter Breite und Länge
-
+def prediction(latitude,longitude):
+    koreans =0
+    italians =0
+    vietnameses=0
+    japaneses=0
+    for x in range(len(feature_df1)):
+        coordinates1 = latitude, longitude
+        for y in range(len(feature_df1)):
+            coordinates2 = feature_df1.at[y, 'latitude'], feature_df1.at[y, 'longitude']
+            dist = geopy.distance.geodesic(coordinates1,coordinates2).m
+            if(dist < 750 and x != y):
+                if("Korean" in str(feature_df1.at[y, 'categories'])):
+                             koreans+=1
+                if("Italian" in str(feature_df1.at[y, 'categories'])):
+                             italians+=1
+                if("Vietnamese" in str(feature_df1.at[y, 'categories'])):
+                             vietnameses+=1
+                if("Japanese" in str(feature_df1.at[y, 'categories'])):
+                             japaneses+=1
+                else:
+                    feature_df1.at[x, 'neighbours']+=1
+    regr = linear_model.LinearRegression()
+    regr.fit(feature_df, label_df)
+    print(regr.predict([[52.4321,13.3210]]).tolist())
 #
 #meine testfunktion
 for x in range(len(feature_df1)):
@@ -64,6 +89,10 @@ for x in range(len(feature_df1)):
                          feature_df1.at[x, 'koreanneigbours']+=1
             if("Italian" in str(feature_df1.at[y, 'categories'])):
                          feature_df1.at[x, 'italianneigbhours']+=1
+            if("Vietnamese" in str(feature_df1.at[y, 'categories'])):
+                         feature_df1.at[x, 'vietnameseneigbhours']+=1
+            if("Japanese" in str(feature_df1.at[y, 'categories'])):
+                         feature_df1.at[x, 'japaneseneigbhours']+=1
             else:
                 feature_df1.at[x, 'neighbours']+=1
 print(feature_df1)
