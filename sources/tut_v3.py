@@ -3,28 +3,21 @@
 Created on Wed Dec 12 08:11:21 2018
 @author: max
 """
-import pprint
 import pandas as pd
 import numpy as np
 from sklearn import linear_model
-import pickle
-from flask import Flask
 from flask import request
 import geopy.distance # pip install geopy
 
+# "all.csv" wird benötigt, da nur diese "categories" enthält, dafür aber die Koordinaten nur in einer Spalte (nicht zwei)
 alle = pd.read_csv(r'C:\Users\max\Downloads\all.csv')
-alle = alle.dropna()
-alle = alle.drop(['name','_id','phone','display_phone','alias','is_closed','url','image_url','transactions','name.1','review_count'], axis=1)
-label_alle = alle.drop(['categories','coordinates'], axis=1)
-alle = alle.drop(['rating'], axis=1)
-#alle.columns= ['categories','latitude', 'longitude']
 #
 df = pd.read_csv(r'C:\Users\max\Downloads\test3.csv')
-df1= df.drop(['price','name','review_count'], axis=1)#useless columns
-df1.columns = ['latitude', 'longitude','rating']#rename
+df= df.drop(['price','name','review_count'], axis=1)#useless columns
+df.columns = ['latitude', 'longitude','rating']#rename
 
-feature_df = df1.drop('rating', axis=1)
-label_df= df1.drop(['longitude','latitude'], axis=1)
+feature_df = df.drop('rating', axis=1)
+label_df= df.drop(['longitude','latitude'], axis=1)
 
 feature_df['neighbours'] = 0 # new column with 0
 feature_df['categories'] = alle['categories'].copy()
@@ -33,62 +26,86 @@ feature_df['koreanneigbours'] = 0
 feature_df['italianneigbhours'] = 0
 feature_df['vietnameseneigbhours'] = 0
 feature_df['japaneseneigbhours'] = 0
+#feature_df1 nur für LinearRegression
 
-feature_df1 = feature_df[0:1000]
+feature_df = feature_df[0:1000]
 
 label_df = label_df[0:1000]
 
+#Setzt den Radius für die Suche nach Nachbarn fest
+radius = 750
+
 #Bereitet das dataframe fürs machinelearning for. füllt die features aus
-for x in range(len(feature_df1)):
-    coordinates1 = feature_df1.at[x, 'latitude'], feature_df1.at[x, 'longitude']
-    for y in range(len(feature_df1)):
-        coordinates2 = feature_df1.at[y, 'latitude'], feature_df1.at[y, 'longitude']
+for x in range(len(feature_df)):
+    if(x % 10 == 0):
+            print(x + 'from' + str(len(feature_df)))
+    coordinates1 = feature_df.at[x, 'latitude'], feature_df.at[x, 'longitude']
+    for y in range(len(feature_df)):
+        coordinates2 = feature_df.at[y, 'latitude'], feature_df.at[y, 'longitude']
         dist = geopy.distance.geodesic(coordinates1,coordinates2).m
-        if(dist < 750 and x != y):
-            if("Korean" in str(feature_df1.at[y, 'categories'])):
-                         feature_df1.at[x, 'koreanneigbours']+=1
-            if("Italian" in str(feature_df1.at[y, 'categories'])):
-                         feature_df1.at[x, 'italianneigbhours']+=1
-            if("Vietnamese" in str(feature_df1.at[y, 'categories'])):
-                         feature_df1.at[x, 'vietnameseneigbhours']+=1
-            if("Japanese" in str(feature_df1.at[y, 'categories'])):
-                         feature_df1.at[x, 'japaneseneigbhours']+=1
+        if(dist < radius and x != y):
+            if("Korean" in str(feature_df.at[y, 'categories'])):
+                         feature_df.at[x, 'koreanneigbours']+=1
+            if("Italian" in str(feature_df.at[y, 'categories'])):
+                         feature_df.at[x, 'italianneigbhours']+=1
+            if("Vietnamese" in str(feature_df.at[y, 'categories'])):
+                         feature_df.at[x, 'vietnameseneigbhours']+=1
+            if("Japanese" in str(feature_df.at[y, 'categories'])):
+                         feature_df.at[x, 'japaneseneigbhours']+=1
             else:
-                feature_df1.at[x, 'neighbours']+=1
-print(feature_df1)
+                feature_df.at[x, 'neighbours']+=1
+print(feature_df)
+
+#exportiert das feature_df als .csv Datei in den Ordner, in dem diese Datei liegt
+feature_df.to_csv('feature_df.csv', sep='\t', encoding='utf-8')
+
 
 #mainmethode
-feature_df2 =feature_df.drop('categories', axis=1)
-feature_df2 = feature_df2[0:1000]
-
+#Testewert: prediction(52.501143,13.318144)
 def prediction(latitude,longitude):
+    feature_df1 =feature_df.drop('categories', axis=1)
+    near_df = gettingneighbours(latitude,longitude)
     koreans =0
     italians =0
     vietnameses=0
     japaneses=0
     others = 0
     coordinates1 = latitude, longitude
-    for y in range(len(feature_df1)):
-        coordinates2 = feature_df1.at[y, 'latitude'], feature_df1.at[y, 'longitude']
+    for y in range(len(near_df)):
+        coordinates2 = near_df.at[y, 'latitude'], near_df.at[y, 'longitude']
         dist = geopy.distance.geodesic(coordinates1,coordinates2).m
-        if(dist < 750):
-            if("Korean" in str(feature_df1.at[y, 'categories'])):
+        if(dist < radius):
+            if("Korean" in str(near_df.at[y, 'categories'])):
                          koreans+=1
-            if("Italian" in str(feature_df1.at[y, 'categories'])):
+            if("Italian" in str(near_df.at[y, 'categories'])):
                          italians+=1
-            if("Vietnamese" in str(feature_df1.at[y, 'categories'])):
+            if("Vietnamese" in str(near_df.at[y, 'categories'])):
                          vietnameses+=1
-            if("Japanese" in str(feature_df1.at[y, 'categories'])):
+            if("Japanese" in str(near_df.at[y, 'categories'])):
                          japaneses+=1
             else:
                 others+=1
     print(others,koreans,italians,vietnameses,japaneses)
     regr = linear_model.LinearRegression()
-    regr.fit(feature_df2, label_df)
+    regr.fit(feature_df1, label_df)
     print(regr.predict([[latitude,longitude,others,koreans,italians,vietnameses,japaneses]]))
 
-#Testewert: prediction(52.501143,13.318144) -> 3,95667576
-    
+#Gibt eie Dataframe mit nur "Nachbarn" zurück -> soll "prediction" optimieren
+# gettingneighbours(52.4589,13.323,750)
+def gettingneighbours(latitude,longitude):
+    near_df = pd.DataFrame(columns=['latitude','longitude','categories'])
+    coordinates1 = latitude, longitude
+    for x in range(len(feature_df)):
+        coordinates2 = feature_df.at[x, 'latitude'], feature_df.at[x, 'longitude']
+        dist = geopy.distance.geodesic(coordinates1,coordinates2).m
+        if(dist < radius):
+            lat = feature_df.at[x,'latitude']
+            lon = feature_df.at[x,'longitude']
+            cat = feature_df.at[x,'categories']
+            print(x)
+            near_df = near_df.append({'latitude' : lat , 'longitude' : lon , 'categories' : cat}, ignore_index = True)
+    return(near_df)
+    print(near_df)
     
     
 #for x in range(len(feature_df)):
