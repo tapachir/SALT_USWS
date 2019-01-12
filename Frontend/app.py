@@ -21,5 +21,5 @@ def result():
       finalResult = calc(lat,lon)
       return render_template("result.html",result = finalResult)
 
-if __name__ == '__main__':  
+if __name__ == '__main__':
    app.run(debug = True)
