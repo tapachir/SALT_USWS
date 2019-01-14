@@ -75,56 +75,62 @@ train_feature_df = train_feature_df[0:100]
 train_label_df = train_label_df[0:100]
 test_label_df = test_label_df [0:100]
 
+#
+#TODO: Indizes für alle Test+Train DFs anpassen
+#
+
 #Setzt den Radius für die Suche nach Nachbarn fest
 radius = 750
 
 #Bereitet das train_dataframe fürs machinelearning for. füllt die features aus (anzahl der nachabrn)
 #funktioniert nicht, weil problem mit leeren zeilen
+train_index_df = 0
+newindex = list(range(0,len(train_feature_df)))
+train_index_df['newindex'] = newindex
+train_index_df = train_index_df.set_index('newindex')
+
 for x in range(len(train_feature_df)):
-    train_index_df = train_feature_df.index
-    train_index = train_index_df[x]
-    coordinates1 = train_feature_df.at[train_index,'latitude'], train_feature_df.at[train_index,'longitude']
+    coordinates1 = train_feature_df.at[x,'latitude'], train_feature_df.at[x,'longitude']
     for y in range(len(train_feature_df)):
-        train_feature_index_df = train_feature_df.index
-        train_feature_index = train_index_df[x]
         coordinates2 = train_feature_df.at[y, 'latitude'], train_feature_df.at[y, 'longitude']
         dist = geopy.distance.geodesic(coordinates1,coordinates2).m
         if(dist < radius and x != y):
-            if("Korean" in str(train_feature_df.at[train_feature_index, 'categories'])):
-                train_feature_df.at[train_index, 'koreanneigbours']+=1
-            if("Italian" in str(train_feature_df.at[train_feature_index, 'categories'])):
-                train_feature_df.at[train_index, 'italianneigbhours']+=1
-            if("Vietnamese" in str(train_feature_df.at[train_feature_index, 'categories'])):
-                train_feature_df.at[train_index, 'vietnameseneigbhours']+=1
-            if("Japanese" in str(train_feature_df.at[train_feature_index, 'categories'])):
-                train_feature_df.at[train_index, 'japaneseneigbhours']+=1
+            if("Korean" in str(train_feature_df.at[y, 'categories'])):
+                train_feature_df.at[x, 'koreanneigbours']+=1
+            if("Italian" in str(train_feature_df.at[y, 'categories'])):
+                train_feature_df.at[x, 'italianneigbhours']+=1
+            if("Vietnamese" in str(train_feature_df.at[y, 'categories'])):
+                train_feature_df.at[x, 'vietnameseneigbhours']+=1
+            if("Japanese" in str(train_feature_df.at[y, 'categories'])):
+                train_feature_df.at[x, 'japaneseneigbhours']+=1
             else:
-                train_feature_df.at[train_index, 'others']+=1
+                train_feature_df.at[x, 'others']+=1
 print(train_feature_df)
            
 
 #prepare test features
 #funktioniert nicht, weil problem mit leeren zeilen
+test_index_df = 0
+newindex = list(range(0,len(test_feature_df)))
+test_index_df['newindex'] = newindex
+test_index_df = test_index_df.set_index('newindex')
+
 for x in range(len(test_feature_df)):
-    test_index_df = test_df.index
-    test_index = test_index_df[x]
-    coordinates1 = test_feature_df.at[test_index, 'latitude'], test_feature_df.at[test_index, 'longitude']
+    coordinates1 = test_feature_df.at[x, 'latitude'], test_feature_df.at[x, 'longitude']
     for y in range(len(test_feature_df)):
-        test_feature_index_df = test_feature_df.index
-        test_feature_index = test_feature_index_df[y]
-        coordinates2 = test_feature_df.at[test_feature_index, 'latitude'], test_feature_df.at[test_feature_index, 'longitude']
+        coordinates2 = test_feature_df.at[y, 'latitude'], test_feature_df.at[y, 'longitude']
         dist = geopy.distance.geodesic(coordinates1,coordinates2).m
         if(dist < radius and x != y):
-            if("Korean" in str(test_feature_df.at[test_feature_index, 'categories'])):
-                         test_feature_df.at[test_index, 'koreanneigbours']+=1
-            if("Italian" in str(test_feature_df.at[test_feature_index, 'categories'])):
-                         test_feature_df.at[test_index, 'italianneigbhours']+=1
-            if("Vietnamese" in str(test_feature_df.at[test_feature_index, 'categories'])):
-                         test_feature_df.at[test_index, 'vietnameseneigbhours']+=1
-            if("Japanese" in str(test_feature_df.at[test_feature_index, 'categories'])):
-                         test_feature_df.at[test_index, 'japaneseneigbhours']+=1
+            if("Korean" in str(test_feature_df.at[y, 'categories'])):
+                         test_feature_df.at[x, 'koreanneigbours']+=1
+            if("Italian" in str(test_feature_df.at[y, 'categories'])):
+                         test_feature_df.at[x, 'italianneigbhours']+=1
+            if("Vietnamese" in str(test_feature_df.at[y, 'categories'])):
+                         test_feature_df.at[x, 'vietnameseneigbhours']+=1
+            if("Japanese" in str(test_feature_df.at[y, 'categories'])):
+                         test_feature_df.at[x, 'japaneseneigbhours']+=1
             else:
-                test_feature_df.at[test_index, 'others']+=1
+                test_feature_df.at[x, 'others']+=1
 print(test_feature_df)
 
 #exportiert das train_feature_df als .csv Datei in den Ordner, in dem diese Datei liegt
@@ -181,24 +187,27 @@ def gettingneighbours(latitude,longitude):
     return(near_df)
     print(near_df)
         
-#testing   
-abw=0
-for x in range(len(test_df)):
+#testing
     
-    dif=0
-    
-    a=test_df.at[x,'latitude']
-    b=test_df.at[x,'longitude']
-    c=test_df.at[x,'price']
-    pred = prediction(a,b,c)
-    print(pred)
-    print(test_label_df.at[x, 'score'])
-    
-    dif = dif + abs(pred-test_label_df.at[x, 'score'])
-    print(dif)
-    test_df.at[x,'test-rating'] = pred
-    test_df.at[x,'dif'] = dif
-    abw = dif / len(test_df)
-    test_df.at[x,'abw'] = abw
-print(test_df)
+test_index_df = 0
+newindex = list(range(0,len(test_df)))
+test_df['newindex'] = newindex
+test_df = test_df.set_index('newindex')
 
+def testing(test_df):
+    abw=0
+    for x in range(len(test_df)):
+        dif=0
+        a=test_df.at[x,'latitude']
+        b=test_df.at[x,'longitude']
+        c=test_df.at[x,'price']
+        pred = prediction(a,b,c)
+        test_df.at[x,'test-rating'] = pred
+        dif =abs(pred-test_label_df.at[x, 'score'])
+        test_df.at[x,'dif'] = dif
+        abw = dif / len(test_df)
+        test_df.at[x,'abw'] = abw
+print('Durschnitt der Differenz:' +' '+ str(np.mean(test_df['dif'])))
+print('Durchschnitt Score:' + ' ' + str(np.mean(test_df['score'])))
+print('Durchschnitt Prediction:' + ' ' + str(np.mean(test_df['pred'])))
+print(test_df)
