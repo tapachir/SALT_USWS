@@ -1,0 +1,101 @@
+newindex	latitude	longitude	price	categories	others	koreanneigbours	italianneigbhours	vietnameseneigbhours	japaneseneigbhours
+0	52.45886510800489	13.322986140847199	1.0	"[{""title"":""Curry Sausage"",""alias"":""currysausage""},{""title"":""Fast Food"",""alias"":""hotdogs""}]"	21	0	3	0	1
+1	52.460469999999994	13.323160000000001	1.0	"[{""title"":""Sushi Bars"",""alias"":""sushi""},{""title"":""Japanese"",""alias"":""japanese""}]"	22	0	2	0	0
+2	52.475434354777	13.339735141679	2.0	"[{""title"":""Italian"",""alias"":""italian""}]"	7	0	2	0	0
+3	52.4646	13.32381	2.0	"[{""title"":""Irish Pub"",""alias"":""irish_pubs""}]"	19	1	2	0	1
+4	52.4707	13.3306	2.0	"[{""title"":""Korean"",""alias"":""korean""}]"	22	1	6	0	0
+5	52.455959299999996	13.3246803	1.0	"[{""title"":""Chinese"",""alias"":""chinese""}]"	15	0	2	0	1
+6	52.450679	13.339645	1.0	"[{""title"":""Curry Sausage"",""alias"":""currysausage""},{""title"":""Fast Food"",""alias"":""hotdogs""}]"	1	0	0	0	0
+7	52.473071	13.321871	1.0	"[{""title"":""Cafes"",""alias"":""cafes""},{""title"":""Coffee \u0026 Tea"",""alias"":""coffee""},{""title"":""Soup"",""alias"":""soup""}]"	13	1	2	0	0
+8	52.472531999999994	13.314698000000002	3.0	"[{""title"":""French"",""alias"":""french""}]"	10	0	2	0	0
+9	52.4814	13.3331	2.0	"[{""title"":""Parks"",""alias"":""parks""}]"	5	0	1	0	0
+10	52.4706248	13.320137099999998	2.0	"[{""title"":""Sushi Bars"",""alias"":""sushi""}]"	17	2	3	0	0
+11	52.45310229999999	13.3204389	2.0	"[{""title"":""Cocktail Bars"",""alias"":""cocktailbars""}]"	11	0	2	0	0
+12	52.464369999999995	13.326039999999999	1.0	"[{""title"":""Cafes"",""alias"":""cafes""}]"	18	1	2	0	1
+13	52.44697693096111	13.3114856357674	2.0	"[{""title"":""Pubs"",""alias"":""pubs""},{""title"":""Whiskey Bars"",""alias"":""whiskeybars""}]"	1	0	0	0	0
+14	52.46024	13.31755	2.0	"[{""title"":""Thai"",""alias"":""thai""}]"	16	0	1	0	1
+15	52.457052412452704	13.322023885262102	2.0	"[{""title"":""American (Traditional)"",""alias"":""tradamerican""},{""title"":""Burgers"",""alias"":""burgers""}]"	16	0	2	0	1
+16	52.4665777675304	13.325003033065698	2.0	"[{""title"":""German"",""alias"":""german""}]"	20	2	3	0	1
+17	52.4644397364299	13.323324099183099	2.0	"[{""title"":""Italian"",""alias"":""italian""}]"	19	1	1	0	1
+18	52.460465	13.323129000000002	2.0	"[{""title"":""Thai"",""alias"":""thai""}]"	21	0	2	0	1
+19	52.45321	13.3244	4.0	"[{""title"":""Mediterranean"",""alias"":""mediterranean""},{""title"":""Italian"",""alias"":""italian""}]"	10	0	1	0	0
+20	52.45536800000001	13.326145	1.0	"[{""title"":""Italian"",""alias"":""italian""}]"	12	0	1	0	1
+21	52.46702	13.325339999999999	2.0	"[{""title"":""Cafes"",""alias"":""cafes""},{""title"":""Patisserie/Cake Shop"",""alias"":""cakeshop""}]"	23	2	3	0	1
+22	52.458156	13.321541	2.0	"[{""title"":""Ice Cream \u0026 Frozen Yogurt"",""alias"":""icecream""}]"	19	0	3	0	1
+23	52.4659002	13.3299	2.0	"[{""title"":""Chinese"",""alias"":""chinese""}]"	19	2	4	0	0
+24	52.48206999999999	13.3171	2.0	"[{""title"":""Italian"",""alias"":""italian""}]"	8	0	0	0	0
+25	52.4569419	13.320635699999999	2.0	"[{""title"":""Local Flavor"",""alias"":""localflavor""}]"	15	0	2	0	1
+26	52.471453000000004	13.3203008	3.0	"[{""title"":""Bakeries"",""alias"":""bakeries""},{""title"":""Cafes"",""alias"":""cafes""}]"	15	2	2	0	0
+27	52.47541700000001	13.323904999999998	2.0	"[{""title"":""Bakeries"",""alias"":""bakeries""}]"	14	1	2	0	0
+28	52.472764	13.321791000000001	3.0	"[{""title"":""Italian"",""alias"":""italian""},{""title"":""Wine Bars"",""alias"":""wine_bars""}]"	14	1	1	0	0
+29	52.47908	13.333179999999999	1.0	"[{""title"":""Indian"",""alias"":""indpak""},{""title"":""Cocktail Bars"",""alias"":""cocktailbars""}]"	7	0	2	0	0
+30	52.4734	13.3223	3.0	"[{""title"":""Dive Bars"",""alias"":""divebars""},{""title"":""Jazz \u0026 Blues"",""alias"":""jazzandblues""},{""title"":""Cocktail Bars"",""alias"":""cocktailbars""}]"	13	1	2	0	0
+31	52.4742	13.3223	2.0	"[{""title"":""Italian"",""alias"":""italian""}]"	13	1	1	0	0
+32	52.4594218	13.304371100000001	3.0	"[{""title"":""Modern European"",""alias"":""modern_european""}]"	0	0	0	0	0
+33	52.4814	13.3189	2.0	"[{""title"":""Lebanese"",""alias"":""lebanese""}]"	9	0	1	0	0
+34	52.45490600000001	13.324363	1.0	"[{""title"":""Desserts"",""alias"":""desserts""},{""title"":""Cafes"",""alias"":""cafes""}]"	12	0	2	0	1
+35	52.4863411	13.3242357	2.0	"[{""title"":""Serbo Croatian"",""alias"":""serbocroatian""}]"	12	0	2	0	0
+36	52.48816	13.337829999999999	1.0	"[{""title"":""Greek"",""alias"":""greek""},{""title"":""Fast Food"",""alias"":""hotdogs""}]"	6	0	2	0	0
+37	52.499577	13.305757	3.0	"[{""title"":""Steakhouses"",""alias"":""steak""}]"	5	0	0	0	1
+38	52.48619	13.32015	2.0	"[{""title"":""Serbo Croatian"",""alias"":""serbocroatian""}]"	11	0	2	0	0
+39	52.471146	13.335551999999998	2.0	"[{""title"":""Italian"",""alias"":""italian""},{""title"":""Tapas/Small Plates"",""alias"":""tapasmallplates""}]"	14	2	4	0	0
+40	52.477219999999996	13.320570000000002	2.0	"[{""title"":""German"",""alias"":""german""}]"	17	0	3	0	0
+41	52.4871097521897	13.3228069614394	1.0	"[{""title"":""Sushi Bars"",""alias"":""sushi""},{""title"":""Pan Asian"",""alias"":""panasian""}]"	13	0	3	0	0
+42	52.455683249486	13.322460072531	2.0	"[{""title"":""Kebab"",""alias"":""kebab""}]"	13	0	2	0	1
+43	52.49701999999999	13.31359	2.0	"[{""title"":""Chinese"",""alias"":""chinese""}]"	10	0	1	1	1
+44	52.466859899999996	13.328029999999998	2.0	"[{""title"":""Korean"",""alias"":""korean""}]"	21	1	4	0	0
+45	52.4989373	13.322996799999999	3.0	"[{""title"":""Peruvian"",""alias"":""peruvian""}]"	8	0	1	1	1
+46	52.49873	13.31533	1.0	"[{""title"":""Sushi Bars"",""alias"":""sushi""},{""title"":""Japanese"",""alias"":""japanese""}]"	13	0	1	1	0
+47	52.500889	13.321431	3.0	"[{""title"":""Arabian"",""alias"":""arabian""},{""title"":""Cafes"",""alias"":""cafes""},{""title"":""Hookah Bars"",""alias"":""hookah_bars""}]"	7	0	0	1	1
+48	52.4737278537546	13.3382599800825	2.0	"[{""title"":""Pizza"",""alias"":""pizza""},{""title"":""Italian"",""alias"":""italian""}]"	11	1	3	0	0
+49	52.47323000000001	13.317479999999998	2.0	"[{""title"":""Serbo Croatian"",""alias"":""serbocroatian""}]"	10	0	2	0	0
+50	52.492937	13.329328	2.0	"[{""title"":""Indian"",""alias"":""indpak""}]"	10	0	2	0	0
+51	52.4993215821881	13.3055115926631	3.0	"[{""title"":""Chinese"",""alias"":""chinese""}]"	5	0	0	0	1
+52	52.473701500000004	13.328800199999998	3.0	"[{""title"":""Delicatessen"",""alias"":""delicatessen""},{""title"":""Specialty Food"",""alias"":""gourmet""},{""title"":""Tapas/Small Plates"",""alias"":""tapasmallplates""}]"	18	1	5	0	0
+53	52.501479400279294	13.325244605804501	3.0	"[{""title"":""Cafes"",""alias"":""cafes""},{""title"":""Desserts"",""alias"":""desserts""},{""title"":""Coffee Roasteries"",""alias"":""coffeeroasteries""}]"	7	0	0	1	1
+54	52.498098999999996	13.323979000000001	2.0	"[{""title"":""Modern European"",""alias"":""modern_european""},{""title"":""Cafes"",""alias"":""cafes""},{""title"":""Lounges"",""alias"":""lounges""}]"	11	0	1	1	1
+55	52.49621	13.341510000000001	2.0	"[{""title"":""Lounges"",""alias"":""lounges""},{""title"":""Russian"",""alias"":""russian""}]"	3	0	1	0	0
+56	52.471649899999996	13.33719	2.0	"[{""title"":""Bars"",""alias"":""bars""},{""title"":""German"",""alias"":""german""},{""title"":""Cafes"",""alias"":""cafes""}]"	12	1	5	0	0
+57	52.501180299999994	13.338077800000002	3.0	"[{""title"":""Modern European"",""alias"":""modern_european""}]"	4	0	1	0	0
+58	52.4691681730693	13.3325258306918	1.0	"[{""title"":""Burgers"",""alias"":""burgers""}]"	17	2	4	0	0
+59	52.46784	13.3311	1.0	"[{""title"":""Pizza"",""alias"":""pizza""},{""title"":""Italian"",""alias"":""italian""}]"	21	2	3	0	0
+60	52.46702	13.33871	2.0	"[{""title"":""Pizza"",""alias"":""pizza""},{""title"":""Italian"",""alias"":""italian""}]"	11	2	3	0	0
+61	52.478789899999995	13.31052	2.0	"[{""title"":""German"",""alias"":""german""}]"	5	0	1	0	0
+62	52.500209999999996	13.31949	3.0	"[{""title"":""Vietnamese"",""alias"":""vietnamese""},{""title"":""Sushi Bars"",""alias"":""sushi""}]"	7	0	0	0	1
+63	52.4978346113558	13.324842820129302	2.0	"[{""title"":""International"",""alias"":""international""},{""title"":""Mediterranean"",""alias"":""mediterranean""}]"	11	0	1	1	1
+64	52.4477	13.315999999999999	1.0	"[{""title"":""Chinese"",""alias"":""chinese""}]"	2	0	0	0	0
+65	52.48215	13.3206399	2.0	"[{""title"":""Turkish"",""alias"":""turkish""},{""title"":""Pan Asian"",""alias"":""panasian""}]"	10	0	2	0	0
+66	52.460159999999995	13.33973	2.0	"[{""title"":""Serbo Croatian"",""alias"":""serbocroatian""}]"	0	0	0	0	0
+67	52.4437	13.3397	3.0	"[{""title"":""Italian"",""alias"":""italian""},{""title"":""German"",""alias"":""german""}]"	0	0	0	0	0
+68	52.488384836555994	13.3397580073631	1.0	"[{""title"":""Curry Sausage"",""alias"":""currysausage""},{""title"":""Barbeque"",""alias"":""bbq""},{""title"":""German"",""alias"":""german""}]"	5	0	1	0	0
+69	52.4672667178351	13.3306052908301	2.0	"[{""title"":""Coffee \u0026 Tea Supplies"",""alias"":""coffeeteasupplies""},{""title"":""Coffee \u0026 Tea"",""alias"":""coffee""},{""title"":""Bistros"",""alias"":""bistros""}]"	20	2	4	0	0
+70	52.494733	13.338273000000001	2.0	"[{""title"":""Italian"",""alias"":""italian""}]"	7	0	0	0	0
+71	52.462657051567895	13.3244211226702	2.0	"[{""title"":""Seafood"",""alias"":""seafood""}]"	22	1	2	0	1
+72	52.4958568649949	13.3087234725075	2.0	"[{""title"":""Indian"",""alias"":""indpak""},{""title"":""Singaporean"",""alias"":""singaporean""},{""title"":""Cocktail Bars"",""alias"":""cocktailbars""}]"	6	0	0	0	1
+73	52.491351601565505	13.3261524082653	2.0	"[{""title"":""Greek"",""alias"":""greek""}]"	11	0	2	0	0
+74	52.491859999999996	13.326929999999999	2.0	"[{""title"":""Desserts"",""alias"":""desserts""},{""title"":""Coffee \u0026 Tea"",""alias"":""coffee""},{""title"":""Breakfast \u0026 Brunch"",""alias"":""breakfast_brunch""}]"	11	0	2	0	0
+75	52.471339799999996	13.3330886	2.0	"[{""title"":""Swabian"",""alias"":""swabian""}]"	15	2	5	0	0
+76	52.464639	13.327399	2.0	"[{""title"":""Fast Food"",""alias"":""hotdogs""},{""title"":""Pizza"",""alias"":""pizza""}]"	18	2	2	0	1
+77	52.4516	13.3357	2.0	"[{""title"":""Greek"",""alias"":""greek""}]"	1	0	0	0	0
+78	52.487392435775696	13.330028267655099	2.0	"[{""title"":""Chinese"",""alias"":""chinese""},{""title"":""Pan Asian"",""alias"":""panasian""}]"	13	0	1	0	0
+79	52.473380000000006	13.31675	4.0	"[{""title"":""Tea Rooms"",""alias"":""tea""}]"	11	0	2	0	0
+80	52.4635539162876	13.3265856402797	2.0	"[{""title"":""Kebab"",""alias"":""kebab""}]"	19	1	2	0	1
+81	52.478868999999996	13.32956	1.0	"[{""title"":""Pan Asian"",""alias"":""panasian""}]"	8	0	1	0	0
+82	52.461265000000004	13.324889	1.0	"[{""title"":""Fast Food"",""alias"":""hotdogs""}]"	23	1	2	0	1
+83	52.470787	13.340759	1.0	"[{""title"":""Indian"",""alias"":""indpak""}]"	10	1	5	0	0
+84	52.49151	13.326089999999999	2.0	"[{""title"":""Indian"",""alias"":""indpak""}]"	12	0	2	0	0
+85	52.50156	13.334729999999999	1.0	"[{""title"":""Mediterranean"",""alias"":""mediterranean""}]"	3	0	0	0	0
+86	52.49345	13.321679999999999	2.0	"[{""title"":""Italian"",""alias"":""italian""},{""title"":""Pizza"",""alias"":""pizza""}]"	12	0	0	0	1
+87	52.48171	13.330010000000001	2.0	"[{""title"":""Restaurants"",""alias"":""restaurants""}]"	7	0	1	0	0
+88	52.50156	13.334729999999999	2.0	"[{""title"":""Pan Asian"",""alias"":""panasian""}]"	3	0	0	0	0
+89	52.498491516012294	13.3148485950947	2.0	"[{""title"":""Austrian"",""alias"":""austrian""}]"	11	0	1	1	1
+90	52.49095	13.331439999999999	2.0	"[{""title"":""Parent Cafes"",""alias"":""eltern_cafes""},{""title"":""International"",""alias"":""international""}]"	13	0	3	0	0
+91	52.475244999999994	13.34024	3.0	"[{""title"":""Cafes"",""alias"":""cafes""},{""title"":""Jazz \u0026 Blues"",""alias"":""jazzandblues""}]"	7	0	3	0	0
+92	52.4628299	13.3261	2.0	"[{""title"":""Cafes"",""alias"":""cafes""},{""title"":""Ice Cream \u0026 Frozen Yogurt"",""alias"":""icecream""}]"	20	1	2	0	1
+93	52.4940799	13.3375299	2.0	"[{""title"":""Patisserie/Cake Shop"",""alias"":""cakeshop""},{""title"":""Cafes"",""alias"":""cafes""},{""title"":""Cupcakes"",""alias"":""cupcakes""}]"	6	0	1	0	0
+94	52.48151	13.31436	2.0	"[{""title"":""Pizza"",""alias"":""pizza""}]"	6	0	1	0	0
+95	52.486090000000004	13.32916	3.0	"[{""title"":""Italian"",""alias"":""italian""}]"	12	0	0	0	0
+96	52.457099899999996	13.32244	1.0	"[{""title"":""Pan Asian"",""alias"":""panasian""}]"	16	0	2	0	1
+97	52.4903	13.3148	3.0	"[{""title"":""Curry Sausage"",""alias"":""currysausage""}]"	4	0	1	0	0
+98	52.49884	13.307889999999999	2.0	"[{""title"":""Pubs"",""alias"":""pubs""},{""title"":""German"",""alias"":""german""}]"	5	0	0	0	1
+99	52.46236999999999	13.32629	1.0	"[{""title"":""Fast Food"",""alias"":""hotdogs""},{""title"":""Burgers"",""alias"":""burgers""}]"	22	1	2	0	1
