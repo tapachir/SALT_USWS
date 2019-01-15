@@ -4,7 +4,6 @@ Created on Wed Dec 12 08:11:21 2018
 @author: max
 """
 
-
 import pandas as pd
 import numpy as np
 from sklearn import linear_model
@@ -13,9 +12,9 @@ import sklearn
 
 
 # "all.csv" wird benötigt, da nur diese "categories" enthält, dafür aber die Koordinaten nur in einer Spalte (nicht zwei)
-alle = pd.read_csv(r'\\homedrive.login.htw-berlin.de\s0565546\WI-Profile\Desktop\Downloads\all.csv')
+alle = pd.read_csv(r'C:\Users\max\Downloads\all.csv')
 #
-df = pd.read_csv(r'\\homedrive.login.htw-berlin.de\s0565546\WI-Profile\Desktop\Downloads\test3.csv')
+df = pd.read_csv(r'C:\Users\max\Downloads\test3.csv')
 df= df.drop(['name'], axis=1)#useless columns
 df.columns = ['latitude', 'longitude','rating','review_count','price']#rename
 #revwiew_count aufräumen / kategorisieren
@@ -32,6 +31,7 @@ df['price'] = df['price'].replace('$$', 2)
 df['price'] = df['price'].replace('€€€', 3)
 df['price'] = df['price'].replace('€€€€', 4)
 df['price'] = df['price'].fillna(2)
+
 
 #df splitten
 train_df, test_df = sklearn.model_selection.train_test_split(df, test_size= 0.2)
@@ -70,11 +70,15 @@ test_feature_df['japaneseneigbhours'] = 0
 #train_feature_df1 nur für LinearRegression
 train_feature_df1 = train_feature_df.drop(['categories'],axis=1)
 
+#dropping NAN coordinates
+train_feature_df = train_feature_df.dropna(subset=['latitude','longitude'])
+test_feature_df = test_feature_df.dropna(subset=['latitude','longitude'])
+train_feature_df1 = train_feature_df1.dropna(subset=['latitude','longitude'])
 #fürs testen sind die Dataframes kleiner
-train_feature_df = train_feature_df[0:100]
-train_label_df = train_label_df[0:100]
-test_label_df = test_label_df [0:100]
-
+#train_feature_df = train_feature_df[0:100]
+#train_label_df = train_label_df[0:100]
+#test_label_df = test_label_df[0:100]
+#test_feature_df = test_feature_df[0:100]
 #
 #TODO: Indizes für alle Test+Train DFs anpassen
 #
@@ -85,11 +89,13 @@ radius = 750
 #Bereitet das train_dataframe fürs machinelearning for. füllt die features aus (anzahl der nachabrn)
 #funktioniert nicht, weil problem mit leeren zeilen
 train_index_df = 0
-newindex = list(range(0,len(train_feature_df)))
-train_index_df['newindex'] = newindex
-train_index_df = train_index_df.set_index('newindex')
-
+newindex1 = list(range(0,len(train_feature_df)))
+train_feature_df['newindex'] = newindex1
+train_feature_df = train_feature_df.set_index('newindex')
+print('fun1')
 for x in range(len(train_feature_df)):
+    if(x % 100 == 0):
+        print(str(x) + ' ' + 'out of' + ' ' + str(len(train_feature_df)))
     coordinates1 = train_feature_df.at[x,'latitude'], train_feature_df.at[x,'longitude']
     for y in range(len(train_feature_df)):
         coordinates2 = train_feature_df.at[y, 'latitude'], train_feature_df.at[y, 'longitude']
@@ -110,12 +116,13 @@ print(train_feature_df)
 
 #prepare test features
 #funktioniert nicht, weil problem mit leeren zeilen
-test_index_df = 0
-newindex = list(range(0,len(test_feature_df)))
-test_index_df['newindex'] = newindex
-test_index_df = test_index_df.set_index('newindex')
-
+newindex2 = list(range(0,len(test_feature_df)))
+test_feature_df['newindex'] = newindex2
+test_feature_df = test_feature_df.set_index('newindex')
+print('fun2')
 for x in range(len(test_feature_df)):
+    if(x % 100 == 0):
+        print(str(x) + ' ' + 'out of' + ' ' + str(len(test_feature_df)))
     coordinates1 = test_feature_df.at[x, 'latitude'], test_feature_df.at[x, 'longitude']
     for y in range(len(test_feature_df)):
         coordinates2 = test_feature_df.at[y, 'latitude'], test_feature_df.at[y, 'longitude']
@@ -167,7 +174,9 @@ def prediction(latitude,longitude,price):
     print(others,koreans,italians,vietnameses,japaneses)
     regr = linear_model.LinearRegression()
     regr.fit(train_feature_df1, train_label_df)
-    print(regr.predict([[latitude,longitude,price,others,koreans,italians,vietnameses,japaneses]]))
+    predscore= regr.predict([[latitude,longitude,price,others,koreans,italians,vietnameses,japaneses]])
+    print(str(predscore))
+    return(predscore)
 
 #Gibt eie Dataframe mit nur "Nachbarn" zurück -> soll "prediction" optimieren
 # gettingneighbours(52.4589,13.323,750)
@@ -190,10 +199,11 @@ def gettingneighbours(latitude,longitude):
 #testing
     
 test_index_df = 0
-newindex = list(range(0,len(test_df)))
-test_df['newindex'] = newindex
+newindex3 = list(range(0,len(test_df)))
+test_df['newindex'] = newindex3
 test_df = test_df.set_index('newindex')
-
+test_df['dif'] = 0
+test_df['score'] = test_label_df['score']
 def testing(test_df):
     abw=0
     for x in range(len(test_df)):
