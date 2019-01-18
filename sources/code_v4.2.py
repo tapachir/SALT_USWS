@@ -8,7 +8,6 @@ import numpy as np
 from sklearn import linear_model
 import geopy.distance
 import sklearn
-import datetime
 
 df = pd.read_csv(r'C:\Users\max\Documents\Dev\Prog2\Abgabe4\SALT_USWS\sources\allWithCategory.csv')
 #renaming columns
@@ -31,7 +30,7 @@ df['price'] = df['price'].fillna(2)
 
 df = df.dropna()
 
-df = df[0:100]
+df = df[0:300]
 
 #df splitten
 train_df, test_df = sklearn.model_selection.train_test_split(df, test_size= 0.2)
@@ -53,21 +52,52 @@ test_label_df = test_label_df.drop(['rating','review_count','categories'],axis=1
 
 #train_feature_df
 train_feature_df = train_df.drop(['rating','review_count'], axis=1)
-train_feature_df['others'] = 0 # new column with 0
-train_feature_df['koreanneigbours'] = 0
-train_feature_df['italianneigbhours'] = 0
-train_feature_df['vietnameseneigbhours'] = 0
-train_feature_df['japaneseneigbhours'] = 0
+train_feature_df['otherneigbours'] = 0
 train_feature_df['own_category'] = 0
+train_feature_df['vietnameseneigbours'] = 0
+train_feature_df['turskishneigbours'] = 0
+train_feature_df['sushineigbours'] = 0
+train_feature_df['pubsneigbours'] = 0
+train_feature_df['pizzaneigbours'] = 0
+train_feature_df['museumsneigbours'] = 0
+train_feature_df['landmarksneigbours'] = 0
+train_feature_df['kebabneigbours'] = 0
+train_feature_df['italianneigbours'] = 0
+train_feature_df['icecreamneigbours'] = 0
+train_feature_df['hotdogsneigbours'] = 0
+train_feature_df['germanneigbours'] = 0
+train_feature_df['divebarsneigbours'] = 0
+train_feature_df['cocktailbarsneigbours'] = 0
+train_feature_df['coffeesneigbours'] = 0
+train_feature_df['cafesneigbours'] = 0
+train_feature_df['burgersneigbours'] = 0
+train_feature_df['barsneigbours'] = 0
+train_feature_df['bakeriesneigbours'] = 0
 
 #test_feature_df
 test_feature_df = test_df.drop(['rating','review_count'], axis=1)
-test_feature_df['others'] = 0 # new column with 0
-test_feature_df['koreanneigbours'] = 0
-test_feature_df['italianneigbhours'] = 0
-test_feature_df['vietnameseneigbhours'] = 0
-test_feature_df['japaneseneigbhours'] = 0
+test_feature_df['otherneigbours'] = 0
 test_feature_df['own_category'] = 0
+test_feature_df['vietnameseneigbours'] = 0
+test_feature_df['turskishneigbours'] = 0
+test_feature_df['sushineigbours'] = 0
+test_feature_df['pubsneigbours'] = 0
+test_feature_df['pizzaneigbours'] = 0
+test_feature_df['museumsneigbours'] = 0
+test_feature_df['landmarksneigbours'] = 0
+test_feature_df['kebabneigbours'] = 0
+test_feature_df['italianneigbours'] = 0
+test_feature_df['icecreamneigbours'] = 0
+test_feature_df['hotdogsneigbours'] = 0
+test_feature_df['germanneigbours'] = 0
+test_feature_df['divebarsneigbours'] = 0
+test_feature_df['cocktailbarsneigbours'] = 0
+test_feature_df['coffeesneigbours'] = 0
+test_feature_df['cafesneigbours'] = 0
+test_feature_df['burgersneigbours'] = 0
+test_feature_df['barsneigbours'] = 0
+test_feature_df['bakeriesneigbours'] = 0
+
 
 #train_feature_df1 nur für LinearRegression
 train_feature_df1 = train_feature_df.drop(['categories'],axis=1)
@@ -75,64 +105,116 @@ train_feature_df1 = train_feature_df.drop(['categories'],axis=1)
 #Setzt den Radius für die Suche nach Nachbarn fest
 radius = 750
 #Bereitet das train_dataframe fürs machinelearning for. füllt die features aus (anzahl der nachabrn)
-starttime = datetime.datetime.now()
-print('Startzeit:'+starttime)
 for x in range(len(train_feature_df)):
-    zeitx1 = datetime.datetime.now()
     if(len(train_feature_df)>=1000):
         modop_train = 5
     if(len(train_feature_df)<1000):
         modop_train = 10
     if((x /len(train_feature_df)*100) % modop_train ==0):
             print(str(x/len(train_feature_df)*100)+'%')
-            print('Aktuelle Dauer:'+ zeitx1-starttime)
     own_category = train_feature_df.at[x,'categories']
     coordinates1 = train_feature_df.at[x, 'latitude'], train_feature_df.at[x, 'longitude']
     for y in range(len(train_feature_df)):
         coordinates2 = train_feature_df.at[y, 'latitude'], train_feature_df.at[y, 'longitude']
         dist = geopy.distance.geodesic(coordinates1,coordinates2).m
         if(dist < radius and x != y):
-            if("korean" in str(train_feature_df.at[y, 'categories'])):
-                train_feature_df.at[x, 'koreanneigbours']+=1
-            if("italian" in str(train_feature_df.at[y, 'categories'])):
-                train_feature_df.at[x, 'italianneigbhours']+=1
             if("vietnamese" in str(train_feature_df.at[y, 'categories'])):
-                train_feature_df.at[x, 'vietnameseneigbhours']+=1
-            if("japanese" in str(train_feature_df.at[y, 'categories'])):
-                train_feature_df.at[x, 'japaneseneigbhours']+=1
+                train_feature_df.at[x, 'vietnameseneigbours']+=1
+            if("turskish" in str(train_feature_df.at[y, 'categories'])):
+                train_feature_df.at[x, 'turskishneigbours']+=1
+            if("sushi" in str(train_feature_df.at[y, 'categories'])):
+                train_feature_df.at[x, 'sushineigbours']+=1
+            if("pubs" in str(train_feature_df.at[y, 'categories'])):
+                train_feature_df.at[x, 'pubsneigbours']+=1
+            if("pizza" in str(train_feature_df.at[y, 'categories'])):
+                train_feature_df.at[x, 'pizzaneigbours']+=1
+            if("museums" in str(train_feature_df.at[y, 'categories'])):
+                train_feature_df.at[x, 'museumsneigbours']+=1
+            if("landmarks" in str(train_feature_df.at[y, 'categories'])):
+                train_feature_df.at[x, 'landmarksneigbours']+=1
+            if("kebab" in str(train_feature_df.at[y, 'categories'])):
+                train_feature_df.at[x, 'kebabneigbours']+=1
+            if("italian" in str(train_feature_df.at[y, 'categories'])):
+                train_feature_df.at[x, 'italianneigbours']+=1
+            if("icecream" in str(train_feature_df.at[y, 'categories'])):
+                train_feature_df.at[x, 'icecreamneigbours']+=1
+            if("hotdogs" or "hotdog" in str(train_feature_df.at[y, 'categories'])):
+                train_feature_df.at[x, 'hotdogsneigbours']+=1
+            if("german" in str(train_feature_df.at[y, 'categories'])):
+                train_feature_df.at[x, 'germanneigbours']+=1
+            if("divebars" in str(train_feature_df.at[y, 'categories'])):
+                train_feature_df.at[x, 'divebarsneigbours']+=1
+            if("cocktailbars" in str(train_feature_df.at[y, 'categories'])):
+                train_feature_df.at[x, 'cocktailbarsneigbours']+=1
+            if("cafes" in str(train_feature_df.at[y, 'categories'])):
+                train_feature_df.at[x, 'cafesneigbours']+=1
+            if("burgers" in str(train_feature_df.at[y, 'categories'])):
+                train_feature_df.at[x, 'burgersneigbours']+=1
+            if("bars" in str(train_feature_df.at[y, 'categories'])):
+                train_feature_df.at[x, 'barsneigbours']+=1
+            if("bakeries" in str(train_feature_df.at[y, 'categories'])):
+                train_feature_df.at[x, 'bakeriesneigbours']+=1
             if(own_category in str(train_feature_df.at[y, 'categories'])):
                 train_feature_df.at[x,'own_category']+=1
             else:
-                train_feature_df.at[x, 'others']+=1
+                train_feature_df.at[x, 'otherneigbours']+=1
 
 #prepare test features
 for x in range(len(test_feature_df)):
-    zeitx2 = datetime.datetime.now()
     if(len(train_feature_df)>=500):
         modop_test = 5
     if(len(train_feature_df)<500):
         modop_test = 10
     if((x /len(test_feature_df)*100) % modop_test ==0):
             print(str(x/len(test_feature_df)*100)+'%')
-            print('Aktuelle Dauer:'+ zeitx2-starttime)
     own_category = test_feature_df.at[x,'categories']
     coordinates1 = test_feature_df.at[x, 'latitude'], test_feature_df.at[x, 'longitude']
     for y in range(len(test_feature_df)):
         coordinates2 = test_feature_df.at[y, 'latitude'], test_feature_df.at[y, 'longitude']
         dist = geopy.distance.geodesic(coordinates1,coordinates2).m
         if(dist < radius and x != y):
-            if("korean" in str(test_feature_df.at[y, 'categories'])):
-                         test_feature_df.at[x, 'koreanneigbours']+=1
-            if("italian" in str(test_feature_df.at[y, 'categories'])):
-                         test_feature_df.at[x, 'italianneigbhours']+=1
             if("vietnamese" in str(test_feature_df.at[y, 'categories'])):
-                         test_feature_df.at[x, 'vietnameseneigbhours']+=1
-            if("japanese" in str(test_feature_df.at[y, 'categories'])):
-                         test_feature_df.at[x, 'japaneseneigbhours']+=1
+                test_feature_df.at[x, 'vietnameseneigbours']+=1
+            if("turskish" in str(test_feature_df.at[y, 'categories'])):
+                test_feature_df.at[x, 'turskishneigbours']+=1
+            if("sushi" in str(test_feature_df.at[y, 'categories'])):
+                test_feature_df.at[x, 'sushineigbours']+=1
+            if("pubs" in str(test_feature_df.at[y, 'categories'])):
+                test_feature_df.at[x, 'pubsneigbours']+=1
+            if("pizza" in str(test_feature_df.at[y, 'categories'])):
+                test_feature_df.at[x, 'pizzaneigbours']+=1
+            if("museums" in str(test_feature_df.at[y, 'categories'])):
+                test_feature_df.at[x, 'museumsneigbours']+=1
+            if("landmarks" in str(test_feature_df.at[y, 'categories'])):
+                test_feature_df.at[x, 'landmarksneigbours']+=1
+            if("kebab" in str(test_feature_df.at[y, 'categories'])):
+                test_feature_df.at[x, 'kebabneigbours']+=1
+            if("italian" in str(test_feature_df.at[y, 'categories'])):
+                test_feature_df.at[x, 'italianneigbours']+=1
+            if("icecream" in str(test_feature_df.at[y, 'categories'])):
+                test_feature_df.at[x, 'icecreamneigbours']+=1
+            if("hotdogs" or "hotdog" in str(test_feature_df.at[y, 'categories'])):
+                test_feature_df.at[x, 'hotdogsneigbours']+=1
+            if("german" in str(test_feature_df.at[y, 'categories'])):
+                test_feature_df.at[x, 'germanneigbours']+=1
+            if("divebars" in str(test_feature_df.at[y, 'categories'])):
+                test_feature_df.at[x, 'divebarsneigbours']+=1
+            if("cocktailbars" in str(test_feature_df.at[y, 'categories'])):
+                test_feature_df.at[x, 'cocktailbarsneigbours']+=1
+            if("coffee" in str(test_feature_df.at[y, 'categories'])):
+                test_feature_df.at[x, 'coffeesneigbours']+=1
+            if("cafes" in str(test_feature_df.at[y, 'categories'])):
+                test_feature_df.at[x, 'cafesneigbours']+=1
+            if("burgers" in str(test_feature_df.at[y, 'categories'])):
+                test_feature_df.at[x, 'burgersneigbours']+=1
+            if("bars" in str(test_feature_df.at[y, 'categories'])):
+                test_feature_df.at[x, 'barsneigbours']+=1
+            if("bakeries" in str(test_feature_df.at[y, 'categories'])):
+                test_feature_df.at[x, 'bakeriesneigbours']+=1
             if(own_category in str(test_feature_df.at[y, 'categories'])):
                 test_feature_df.at[x,'own_category']+=1
             else:
-                test_feature_df.at[x, 'others']+=1
+                test_feature_df.at[x, 'otherneigbours']+=1
 
 ##exportiert das train_feature_df als .csv Datei in den Ordner, in dem diese Datei liegt
 train_feature_df.to_csv('train_feature_df.csv', sep='\t', encoding='utf-8')
@@ -143,36 +225,82 @@ test_df.to_csv('test_feature.csv', sep='\t', encoding='utf-8')
 
 #mainmethode
 def prediction(latitude,longitude,price,category):
+    own_category = category
     price = price
     train_feature_df_1 = train_feature_df.drop(['latitude','longitude','categories'],axis=1)
     near_df = gettingneighbours(latitude,longitude)
-    koreans =0
-    italians =0
-    vietnameses=0
-    japaneses=0
-    others = 0
-    owncategory=0
-    own_category = category
+    vietnamese=0
+    turskish=0
+    sushi=0
+    pubs=0
+    pizza=0
+    museums=0
+    landmarks=0
+    kebab=0
+    italian=0
+    icecream=0
+    hotdogs=0
+    german=0
+    divebars=0
+    coffee=0
+    cocktailbars=0
+    cafes=0
+    burgers=0
+    bars=0
+    bakeries=0
+    own= 0
+    others=0
     coordinates1 = latitude, longitude
     for y in range(len(near_df)):
         coordinates2 = near_df.at[y, 'latitude'], near_df.at[y, 'longitude']
         dist = geopy.distance.geodesic(coordinates1,coordinates2).m
         if(dist < radius):
-            if("korean" in str(near_df.at[y, 'categories'])):
-                         koreans+=1
-            if("italian" in str(near_df.at[y, 'categories'])):
-                         italians+=1
-            if("vietnamese" in str(near_df.at[y, 'categories'])):
-                         vietnameses+=1
-            if("japanese" in str(near_df.at[y, 'categories'])):
-                         japaneses+=1
-            if(own_category in str(near_df.at[y, 'categories'])):
-                         owncategory+=1
+            if("vietnamese" in str(test_feature_df.at[y, 'categories'])):
+               vietnamese+=1
+            if("turskish" in str(test_feature_df.at[y, 'categories'])):
+                turskish+=1
+            if("sushi" in str(test_feature_df.at[y, 'categories'])):
+                sushi+=1
+            if("pubs" in str(test_feature_df.at[y, 'categories'])):
+                pubs+=1
+            if("pizza" in str(test_feature_df.at[y, 'categories'])):
+                pizza+=1
+            if("museums" in str(test_feature_df.at[y, 'categories'])):
+                museums+=1
+            if("landmarks" in str(test_feature_df.at[y, 'categories'])):
+                landmarks+=1
+            if("kebab" in str(test_feature_df.at[y, 'categories'])):
+                kebab+=1
+            if("italian" in str(test_feature_df.at[y, 'categories'])):
+                italian+=1
+            if("icecream" in str(test_feature_df.at[y, 'categories'])):
+                icecream+=1
+            if("hotdogs" or "hotdog" in str(test_feature_df.at[y, 'categories'])):
+                hotdogs+=1
+            if("german" in str(test_feature_df.at[y, 'categories'])):
+                german+=1
+            if("divebars" in str(test_feature_df.at[y, 'categories'])):
+                divebars+=1
+            if("cocktailbars" in str(test_feature_df.at[y, 'categories'])):
+                cocktailbars+=1
+            if("coffee" in str(test_feature_df.at[y, 'categories'])):
+                coffee+=1
+            if("cafes" in str(test_feature_df.at[y, 'categories'])):
+                cafes+=1
+            if("burgers" in str(test_feature_df.at[y, 'categories'])):
+                burgers+=1
+            if("bars" in str(test_feature_df.at[y, 'categories'])):
+                bars+=1
+            if("bakeries" in str(test_feature_df.at[y, 'categories'])):
+                bakeries+=1
+            if(own_category in str(test_feature_df.at[y, 'categories'])):
+                own+=1
             else:
                 others+=1
     regr = linear_model.LinearRegression()
     regr.fit(train_feature_df_1, train_label_df)
-    predscore = regr.predict([[price,others,koreans,italians,vietnameses,japaneses,owncategory]])
+    predscore = regr.predict([[price,others,own,vietnamese,turskish,sushi,pubs,pizza,museums,landmarks,kebab,italian,
+                               icecream,hotdogs,german,divebars,cocktailbars,coffee,cafes,burgers,bars,bakeries]])
     return(predscore)
 
 #Gibt eie Dataframe mit nur "Nachbarn" zurück -> soll "prediction" optimieren
@@ -191,7 +319,6 @@ def gettingneighbours(latitude,longitude):
         
 #testing
 def test(test_df):
-    starttime2 = datetime.datetime.now()
     ergebnis_df = pd.DataFrame(columns=['score','predictedscore','dif'])
     ergebnis_df.at[0,'score'] = test_label_df.at[0,'score']
     if(len(test_df)>=500):
@@ -199,10 +326,8 @@ def test(test_df):
     if(len(test_df)<500):
         modop_test = 10
     for x in range(len(test_df)):
-        zeitx3 = datetime.datetime.now()
         if((x /len(test_df)*100) % modop_test ==0):
             print(str(x/len(test_df)*100)+'%')
-            print('Aktuelle Dauer:'+ zeitx3-starttime2)
         dif=0
         
         lat=test_df.at[x,'latitude']
@@ -210,6 +335,7 @@ def test(test_df):
         pri=test_df.at[x,'price']
         cat=test_df.at[x,'categories']
         pred = prediction(lat,lon,pri,cat)
+        print(pred)
         pred= float(pred)
         
         ergebnis_df.at[x,'score'] = test_label_df.at[x,'score']
