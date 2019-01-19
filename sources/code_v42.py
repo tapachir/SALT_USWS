@@ -9,7 +9,7 @@ from sklearn import linear_model
 import geopy.distance
 import sklearn
 
-df = pd.read_csv(r'C:\Users\max\Documents\Dev\Prog2\Abgabe4\SALT_USWS\sources\allWithCategory.csv')
+df = pd.read_csv(r'/home/tahir/Documents/code/tahir/SALT_USWS/sources/allWithCategory.csv')
 #renaming columns
 df.columns = ['latitude', 'longitude','rating','review_count','price','categories']
 
@@ -30,7 +30,7 @@ df['price'] = df['price'].fillna(2)
 
 df = df.dropna()
 
-df = df[0:300]
+df = df[0:1000]
 
 #df splitten
 train_df, test_df = sklearn.model_selection.train_test_split(df, test_size= 0.2)
@@ -104,8 +104,11 @@ train_feature_df1 = train_feature_df.drop(['categories'],axis=1)
 
 #Setzt den Radius für die Suche nach Nachbarn fest
 radius = 750
-#Bereitet das train_dataframe fürs machinelearning for. füllt die features aus (anzahl der nachabrn)
+#Bereitet das train_dataframe fürs machinelearning for. füllt die features aus (anzahl der n    achabrn)
 for x in range(len(train_feature_df)):
+
+    dist = geopy.distance.geodesic(coordinates1, coordinates2).m
+    dist = int(dist)
     if(len(train_feature_df)>=1000):
         modop_train = 5
     if(len(train_feature_df)<1000):
@@ -301,6 +304,7 @@ def prediction(latitude,longitude,price,category):
     regr.fit(train_feature_df_1, train_label_df)
     predscore = regr.predict([[price,others,own,vietnamese,turskish,sushi,pubs,pizza,museums,landmarks,kebab,italian,
                                icecream,hotdogs,german,divebars,cocktailbars,coffee,cafes,burgers,bars,bakeries]])
+    predscore = str(round(predscore[0][0], 2))
     return(predscore)
 
 #Gibt eie Dataframe mit nur "Nachbarn" zurück -> soll "prediction" optimieren

@@ -9,7 +9,7 @@ def compare(lat,lon):
     under250m = 0
     coordinates1 = float(lat),float(lon)
 
-    with open('stops.txt') as csv_file:
+    with open('cleanedStops.txt') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         next(csv_reader, None)
 
@@ -31,7 +31,9 @@ def compare(lat,lon):
         print("under500m", under500m)
         print("under250m", under250m)
 
+        result =  (under250m*6) + (under500m*3) + (under1km*1)
+
+        print(result)
 
 
-
-compare(52.541461, 13.410582)
+compare(52.45887, 13.32299)

@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<!--
+	Eventually by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>SALT</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+
+		    <link rel="stylesheet" href="{{ url_for('static', filename='styles/css/main.css') }}">
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header">
+				<h1>SALT </h1>
+				<h2 ><span style="color: #ffcc00;">S</span>uper <span style="color: #ffcc00;">A</span>wesome <span style="color: #ffcc00;">L</span>ocation <span style="color: #ffcc00;">T</span>ipps</h2>
+
+				<p>
+					A simple tool to predict how succesful a restaurant would be at a chosen location.<br>
+					Just input the address and our algorthm is telling you if the address is likely to be a good spot or not for you.<br />
+				    YOUR NEXT BIG THING.</p>
+			</header>
+
+<!--      <form  id="signup-form" action = "http://localhost:5000/result" method = "POST">
+         <p>STREET <input type = "text" name = "Street" /></p>
+         <p>NUMBER <input type = "text" name = "Number" /></p>
+         <p>ZIPCODE<input type = "text" name = "Zipcode" /></p>
+
+          <select name="price">
+			  Price Range:
+           <option value="1">€</option>
+           <option value="2">€€</option>
+           <option value="3">€€€</option>
+           <option value="4">€€€€</option>
+         </select>
+         <p><input type = "submit" value = "submit" /></p>
+      </form>-->
+
+		  <form action = "http://localhost:5000/result" method = "POST">
+         <p>STREET <input type = "text" name = "Street" /></p>
+         <p>NUMBER <input type = "text" name = "Number" /></p>
+         <p>ZIPCODE<input type = "text" name = "Zipcode" /></p>
+		 	Category:
+          <select name="category">
+           <option value="italian">Italian</option>
+           <option value="vietnamese">Vietnamese</option>
+           <option value="german">German</option>
+		   <option value="turkish">Turkish</option>
+           <option value="pubs">pubs</option>
+           <option value="sushi">Sushi</option>
+		   <option value="pizza">Pizza</option>
+           <option value="kebab">Kebab</option>
+           <option value="icecream">Icecream</option>
+		   <option value="hotdog">Hotdogs</option>
+           <option value="divebar">Divebar</option>
+           <option value="cocktailbar">Cocktailbar</option>
+		   <option value="burgers">Burgers</option>
+           <option value="bars">Bars</option>
+		   <option value="bakeries">Bakery</option>
+           <option value="others">Others</option>
+
+         </select>
+         Price Range:
+          <select name="price">
+           <option value="1">€</option>
+           <option value="2">€€</option>
+           <option value="3">€€€</option>
+           <option value="4">€€€€</option>
+         </select>
+         <p><input type = "submit" value = "submit" /></p>
+      </form>
+		<!-- Signup Form -->
+			<!--<form id="signup-form" method="post" action="#">-->
+				<!--<input type="email" name="email" id="email" placeholder="Email Address" />-->
+				<!--<input type="submit" value="Sign Up" />-->
+			<!--</form>-->
+
+		<!-- Footer -->
+			<footer id="footer">
+
+				<ul class="copyright">
+					<li>&copy; SALT.</li><li>Credits: <a href="http://html5up.net">SALT</a></li>
+				</ul>
+			</footer>
+
+		<!-- Scripts -->
+
+			<script type=text/javascript src="{{  url_for('static', filename='styles/js/main.js') }}">
+
+			</script>
+	</body>
+</html>
