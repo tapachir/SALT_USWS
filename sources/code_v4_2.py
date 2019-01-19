@@ -202,11 +202,11 @@ for x in range(len(test_feature_df)):
                 test_feature_df.at[x, 'otherneigbours']+=1
 
 ##exportiert das train_feature_df als .csv Datei in den Ordner, in dem diese Datei liegt
-train_feature_df.to_csv('train_feature_df.csv', sep='\t', encoding='utf-8')
+train_feature_df.to_csv(r'CSVFiles/train_feature_df.csv', sep='\t', encoding='utf-8')
 ##exportiert das test_feature_df als .csv Datei in den Ordner, in dem diese Datei liegt
-test_feature_df.to_csv('test_feature_df.csv', sep='\t', encoding='utf-8')
+test_feature_df.to_csv(r'CSVFiles/test_feature_df.csv', sep='\t', encoding='utf-8')
 ##exportiert das test_df als .csv Datei in den Ordner, in dem diese Datei liegt
-test_df.to_csv('test_feature.csv', sep='\t', encoding='utf-8')
+test_df.to_csv(r'CSVFiles/test_feature.csv', sep='\t', encoding='utf-8')
 
 #mainmethode
 def prediction(latitude,longitude,price,category):
