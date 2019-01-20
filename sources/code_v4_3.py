@@ -18,12 +18,14 @@ coordinatesMitte = (52.524436,13.409616)
 
 radius = 750
 
+#Alle wichtigen Dataframes werden importiert
 test_feature_df = pd.read_csv(r'C:\Users\max\Documents\Dev\Prog2\Abgabe4\SALT_USWS\sources\CSVFiles\test_feature_df.csv')
 test_label_df =pd.read_csv(r'C:\Users\max\Documents\Dev\Prog2\Abgabe4\SALT_USWS\sources\CSVFiles\test_label_df.csv')
 test_df =pd.read_csv(r'C:\Users\max\Documents\Dev\Prog2\Abgabe4\SALT_USWS\sources\CSVFiles\test_df.csv')
 train_feature_df =pd.read_csv(r'C:\Users\max\Documents\Dev\Prog2\Abgabe4\SALT_USWS\sources\CSVFiles\train_feature_df.csv')
 train_label_df =pd.read_csv(r'C:\Users\max\Documents\Dev\Prog2\Abgabe4\SALT_USWS\sources\CSVFiles\train_label_df.csv')
 
+#Unwichtige Spalte wird gelöscht
 test_feature_df= test_feature_df.drop(['Unnamed: 0'],axis=1)
 test_label_df= test_label_df.drop(['Unnamed: 0'],axis=1)
 test_df= test_df.drop(['Unnamed: 0'],axis=1)
@@ -60,38 +62,68 @@ def prediction(latitude,longitude,price,category):
         if(dist < radius):
             if("vietnamese" in str(near_df.at[predictiony, 'categories'])):
                vietnamese+=1
+               if("vietnamese" == own_category):
+                   own+=1
             if("sushi" in str(near_df.at[predictiony, 'categories'])):
                 sushi+=1
+                if("sushi" == own_category):
+                   own+=1
             if("pubs" in str(near_df.at[predictiony, 'categories'])):
                 pubs+=1
+                if("pubs" == own_category):
+                   own+=1
             if("pizza" in str(near_df.at[predictiony, 'categories'])):
                 pizza+=1
+                if("pizza" == own_category):
+                   own+=1
             if("kebab" in str(near_df.at[predictiony, 'categories'])):
                 kebab+=1
+                if("kebab" == own_category):
+                   own+=1
             if("italian" in str(near_df.at[predictiony, 'categories'])):
                 italian+=1
+                if("italian" == own_category):
+                   own+=1
             if("icecream" in str(near_df.at[predictiony, 'categories'])):
                 icecream+=1
+                if("icecream" == own_category):
+                   own+=1
             if("hotdogs" or "hotdog" in str(near_df.at[predictiony, 'categories'])):
                 hotdogs+=1
+                if("hotdogs" == own_category):
+                   own+=1
             if("german" in str(near_df.at[predictiony, 'categories'])):
                 german+=1
+                if("german" == own_category):
+                   own+=1
             if("divebars" in str(near_df.at[predictiony, 'categories'])):
                 divebars+=1
+                if("divebars" == own_category):
+                   own+=1
             if("cocktailbars" in str(near_df.at[predictiony, 'categories'])):
                 cocktailbars+=1
+                if("cocktailbars" == own_category):
+                   own+=1
             if("cafes" or "coffee" in str(near_df.at[predictiony, 'categories'])):
                 cafes+=1
+                if("cafes" == own_category):
+                   own+=1
             if("burgers" in str(near_df.at[predictiony, 'categories'])):
                 burgers+=1
+                if("burgers" == own_category):
+                   own+=1
             if("bars" in str(near_df.at[predictiony, 'categories'])):
                 bars+=1
+                if("bars" == own_category):
+                   own+=1
             if("bakeries" in str(near_df.at[predictiony, 'categories'])):
                 bakeries+=1
-            if(own_category in str(near_df.at[predictiony, 'categories'])):
-                own+=1
+                if("bakeries" == own_category):
+                   own+=1
             else:
                 others+=1
+                if(str(near_df.at[predictiony, 'categories']) == own_category):
+                   own+=1
     regr = linear_model.LinearRegression()
     regr.fit(train_feature_df_1, train_label_df)
     predscore = regr.predict([[price,others,own,vietnamese,sushi,pubs,pizza,kebab,italian,
@@ -111,7 +143,7 @@ def gettingneighbours(latitude,longitude):
             cat = train_feature_df.at[gettingneighboursx,'categories']
             near_df = near_df.append({'latitude' : lat , 'longitude' : lon , 'categories' : cat}, ignore_index = True)
     return(near_df)
-        
+     
 #testing
 def test(test_df):
     ergebnis_df = pd.DataFrame(columns=['score','predictedscore','dif'])
@@ -122,7 +154,7 @@ def test(test_df):
         modop_test = 10
     for test in range(len(test_df)):
         if((test /len(test_df)*100) % modop_test ==0):
-            print(datetime.datetime.now)
+            print(datetime.datetime.now())
             print(str(test/len(test_df)*100)+'%')
         dif=0
         
@@ -153,4 +185,3 @@ def test(test_df):
     print('maximum: ' + str(np.max(ergebnis_df['dif'])))
     print('Varianz: ' + str(np.var(ergebnis_df['dif'])))
     print('Spannweite Prediction: ' + str((np.min(ergebnis_df['predictedscore'] - np.max(ergebnis_df['predictedscore'])))))
-    print('Spannweite echter Score: ' + str((np.min(ergebnis_df['score'] - np.max(ergebnis_df['score'])))))

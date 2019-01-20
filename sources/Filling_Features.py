@@ -27,7 +27,7 @@ df['price'] = df['price'].replace('€€', 2)
 df['price'] = df['price'].replace('$$', 2)
 df['price'] = df['price'].replace('€€€', 3)
 df['price'] = df['price'].replace('€€€€', 4)
-df['price'] = df['price'].fillna(2)
+#df['price'] = df['price'].fillna(2)
 
 df = df.dropna()
 
@@ -103,8 +103,10 @@ radius = 750
 #Bereitet das train_dataframe fürs machinelearning for. füllt die features aus (anzahl der nachabrn)
 print(datetime.datetime.now())
 for x in range(len(train_feature_df)):
+    print('X:'+' '+str(x))
+    print('Aktuelle Zeit:' +' '+str(datetime.datetime.now()))
     if(len(train_feature_df)>=100):
-        modop_train = 2
+        modop_train = 1
     if(len(train_feature_df)>=500):
         modop_train = 5
     if(len(train_feature_df)<500):
@@ -120,44 +122,74 @@ for x in range(len(train_feature_df)):
         if(dist < radius and x != y):
             if("vietnamese" in str(train_feature_df.at[y, 'categories'])):
                 train_feature_df.at[x, 'vietnameseneigbours']+=1
+                if("vietnamese" == own_category):
+                    train_feature_df.at[x,'own_category']+=1
             if("sushi" in str(train_feature_df.at[y, 'categories'])):
                 train_feature_df.at[x, 'sushineigbours']+=1
+                if("sushi" == own_category):
+                    train_feature_df.at[x,'own_category']+=1
             if("pubs" in str(train_feature_df.at[y, 'categories'])):
                 train_feature_df.at[x, 'pubsneigbours']+=1
+                if("pubs" == own_category):
+                    train_feature_df.at[x,'own_category']+=1
             if("pizza" in str(train_feature_df.at[y, 'categories'])):
                 train_feature_df.at[x, 'pizzaneigbours']+=1
+                if("pizza" == own_category):
+                    train_feature_df.at[x,'own_category']+=1
             if("kebab" in str(train_feature_df.at[y, 'categories'])):
                 train_feature_df.at[x, 'kebabneigbours']+=1
+                if("kebab" == own_category):
+                    train_feature_df.at[x,'own_category']+=1
             if("italian" in str(train_feature_df.at[y, 'categories'])):
                 train_feature_df.at[x, 'italianneigbours']+=1
+                if("italian" == own_category):
+                    train_feature_df.at[x,'own_category']+=1
             if("icecream" in str(train_feature_df.at[y, 'categories'])):
                 train_feature_df.at[x, 'icecreamneigbours']+=1
+                if("icecream" == own_category):
+                    train_feature_df.at[x,'own_category']+=1
             if("hotdogs" or "hotdog" in str(train_feature_df.at[y, 'categories'])):
                 train_feature_df.at[x, 'hotdogsneigbours']+=1
+                if("hotdogs" or "hotdog" == own_category):
+                    train_feature_df.at[x,'own_category']+=1
             if("german" in str(train_feature_df.at[y, 'categories'])):
                 train_feature_df.at[x, 'germanneigbours']+=1
+                if("german" == own_category):
+                    train_feature_df.at[x,'own_category']+=1
             if("divebars" in str(train_feature_df.at[y, 'categories'])):
                 train_feature_df.at[x, 'divebarsneigbours']+=1
+                if("divebars" == own_category):
+                    train_feature_df.at[x,'own_category']+=1
             if("cocktailbars" in str(train_feature_df.at[y, 'categories'])):
                 train_feature_df.at[x, 'cocktailbarsneigbours']+=1
+                if("cocktailbars" == own_category):
+                    train_feature_df.at[x,'own_category']+=1
             if("cafes" or "coffee" in str(train_feature_df.at[y, 'categories'])):
                 train_feature_df.at[x, 'cafesneigbours']+=1
+                if("cafes" or "coffee" == own_category):
+                    train_feature_df.at[x,'own_category']+=1
             if("burgers" in str(train_feature_df.at[y, 'categories'])):
                 train_feature_df.at[x, 'burgersneigbours']+=1
+                if("burgers" == own_category):
+                    train_feature_df.at[x,'own_category']+=1
             if("bars" in str(train_feature_df.at[y, 'categories'])):
                 train_feature_df.at[x, 'barsneigbours']+=1
+                if("bars" == own_category):
+                    train_feature_df.at[x,'own_category']+=1
             if("bakeries" in str(train_feature_df.at[y, 'categories'])):
                 train_feature_df.at[x, 'bakeriesneigbours']+=1
-            if(own_category in str(train_feature_df.at[y, 'categories'])):
-                train_feature_df.at[x,'own_category']+=1
+                if("bakeries" == own_category):
+                    train_feature_df.at[x,'own_category']+=1
             else:
                 train_feature_df.at[x, 'otherneigbours']+=1
+                if(str(train_feature_df.at[y, 'categories']) == own_category):
+                    train_feature_df.at[x,'own_category']+=1
                 
 #prepare test features
 print(datetime.datetime.now())
 for x in range(len(test_feature_df)):
     if(len(train_feature_df)>=500):
-        modop_test = 2
+        modop_test = 1
     if(len(train_feature_df)>=250):
         modop_test = 5
     if(len(train_feature_df)<250):
@@ -166,51 +198,79 @@ for x in range(len(test_feature_df)):
             print(str(x/len(test_feature_df)*100)+'%')
     own_category = test_feature_df.at[x,'categories']
     coordinates1 = test_feature_df.at[x, 'latitude'], test_feature_df.at[x, 'longitude']
-    train_feature_df.at[x,'distanceToMitte'] = geopy.distance.geodesic(coordinates1,coordinatesMitte).m
+    test_feature_df.at[x,'distanceToMitte'] = geopy.distance.geodesic(coordinates1,coordinatesMitte).m
     for y in range(len(test_feature_df)):
         coordinates2 = test_feature_df.at[y, 'latitude'], test_feature_df.at[y, 'longitude']
         dist = geopy.distance.geodesic(coordinates1,coordinates2).m
         if(dist < radius and x != y):
             if("vietnamese" in str(test_feature_df.at[y, 'categories'])):
                 test_feature_df.at[x, 'vietnameseneigbours']+=1
+                if("vietnamese" == own_category):
+                    test_feature_df.at[x,'own_category']+=1
             if("sushi" in str(test_feature_df.at[y, 'categories'])):
                 test_feature_df.at[x, 'sushineigbours']+=1
+                if("sushi" == own_category):
+                    test_feature_df.at[x,'own_category']+=1
             if("pubs" in str(test_feature_df.at[y, 'categories'])):
                 test_feature_df.at[x, 'pubsneigbours']+=1
+                if("pubs" == own_category):
+                    test_feature_df.at[x,'own_category']+=1
             if("pizza" in str(test_feature_df.at[y, 'categories'])):
                 test_feature_df.at[x, 'pizzaneigbours']+=1
+                if("pizza" == own_category):
+                    test_feature_df.at[x,'own_category']+=1
             if("kebab" in str(test_feature_df.at[y, 'categories'])):
                 test_feature_df.at[x, 'kebabneigbours']+=1
+                if("kebab" == own_category):
+                    test_feature_df.at[x,'own_category']+=1
             if("italian" in str(test_feature_df.at[y, 'categories'])):
                 test_feature_df.at[x, 'italianneigbours']+=1
+                if("italian" == own_category):
+                    test_feature_df.at[x,'own_category']+=1
             if("icecream" in str(test_feature_df.at[y, 'categories'])):
                 test_feature_df.at[x, 'icecreamneigbours']+=1
+                if("icecream" == own_category):
+                    test_feature_df.at[x,'own_category']+=1
             if("hotdogs" or "hotdog" in str(test_feature_df.at[y, 'categories'])):
                 test_feature_df.at[x, 'hotdogsneigbours']+=1
+                if("hotdogs" or "hotdog" == own_category):
+                    test_feature_df.at[x,'own_category']+=1
             if("german" in str(test_feature_df.at[y, 'categories'])):
                 test_feature_df.at[x, 'germanneigbours']+=1
+                if("german" == own_category):
+                    test_feature_df.at[x,'own_category']+=1
             if("divebars" in str(test_feature_df.at[y, 'categories'])):
                 test_feature_df.at[x, 'divebarsneigbours']+=1
+                if("divebars" == own_category):
+                    test_feature_df.at[x,'own_category']+=1
             if("cocktailbars" in str(test_feature_df.at[y, 'categories'])):
                 test_feature_df.at[x, 'cocktailbarsneigbours']+=1
+                if("cocktailbars" == own_category):
+                    test_feature_df.at[x,'own_category']+=1
             if("cafes" or "coffee" in str(test_feature_df.at[y, 'categories'])):
                 test_feature_df.at[x, 'cafesneigbours']+=1
+                if("cafes" or "coffee" == own_category):
+                    test_feature_df.at[x,'own_category']+=1
             if("burgers" in str(test_feature_df.at[y, 'categories'])):
                 test_feature_df.at[x, 'burgersneigbours']+=1
+                if("burgers" == own_category):
+                    test_feature_df.at[x,'own_category']+=1
             if("bars" in str(test_feature_df.at[y, 'categories'])):
                 test_feature_df.at[x, 'barsneigbours']+=1
+                if("bars" == own_category):
+                    test_feature_df.at[x,'own_category']+=1
             if("bakeries" in str(test_feature_df.at[y, 'categories'])):
                 test_feature_df.at[x, 'bakeriesneigbours']+=1
-            if(own_category in str(test_feature_df.at[y, 'categories'])):
-                test_feature_df.at[x,'own_category']+=1
+                if("bakeries" == own_category):
+                    test_feature_df.at[x,'own_category']+=1
             else:
                 test_feature_df.at[x, 'otherneigbours']+=1
+                if(str(test_feature_df.at[y, 'categories']) == own_category):
+                    test_feature_df.at[x,'own_category']+=1
 
-##exportiert das train_feature_df als .csv Datei in den Ordner, in dem diese Datei liegt
+#Exportiert ALLE wichtigen gefüllten Dataframes
 train_feature_df.to_csv(r'CSVFiles/train_feature_df.csv', sep=',', encoding='utf-8')
-##exportiert das test_feature_df als .csv Datei in den Ordner, in dem diese Datei liegt
 test_feature_df.to_csv(r'CSVFiles/test_feature_df.csv', sep=',', encoding='utf-8')
-##exportiert das test_df als .csv Datei in den Ordner, in dem diese Datei liegt
 test_df.to_csv(r'CSVFiles/test_df.csv', sep=',', encoding='utf-8')
 train_label_df.to_csv(r'CSVFiles/train_label_df.csv', sep=',', encoding='utf-8')
 test_label_df.to_csv(r'CSVFiles/test_label_df.csv', sep=',', encoding='utf-8')
