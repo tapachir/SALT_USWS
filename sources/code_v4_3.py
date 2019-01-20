@@ -4,13 +4,15 @@ Created on Sat Jan 19 21:10:26 2019
 
 @author: max
 """
+import csv
+
 import pandas as pd
 import numpy as np
 from sklearn import linear_model
 import geopy.distance
 import datetime
 
-df = pd.read_csv(r'C:\Users\max\Documents\Dev\Prog2\Abgabe4\SALT_USWS\sources\allWithCategory.csv')
+df = pd.read_csv(r'/home/tahir/Documents/code/tahir/SALT_USWS/sources/allWithCategory.csv')
 #renaming columns
 
 #Setzt den Radius für die Suche nach Nachbarn fest
@@ -19,11 +21,11 @@ coordinatesMitte = (52.524436,13.409616)
 radius = 750
 
 #Alle wichtigen Dataframes werden importiert
-test_feature_df = pd.read_csv(r'C:\Users\max\Documents\Dev\Prog2\Abgabe4\SALT_USWS\sources\CSVFiles\test_feature_df.csv')
-test_label_df =pd.read_csv(r'C:\Users\max\Documents\Dev\Prog2\Abgabe4\SALT_USWS\sources\CSVFiles\test_label_df.csv')
-test_df =pd.read_csv(r'C:\Users\max\Documents\Dev\Prog2\Abgabe4\SALT_USWS\sources\CSVFiles\test_df.csv')
-train_feature_df =pd.read_csv(r'C:\Users\max\Documents\Dev\Prog2\Abgabe4\SALT_USWS\sources\CSVFiles\train_feature_df.csv')
-train_label_df =pd.read_csv(r'C:\Users\max\Documents\Dev\Prog2\Abgabe4\SALT_USWS\sources\CSVFiles\train_label_df.csv')
+test_feature_df = pd.read_csv(r'/home/tahir/Documents/code/tahir/SALT_USWS/sources/test_feature_df.csv')
+test_label_df =pd.read_csv(r'/home/tahir/Documents/code/tahir/SALT_USWS/sources/test_label_df.csv')
+test_df =pd.read_csv(r'/home/tahir/Documents/code/tahir/SALT_USWS/sources/test_df.csv')
+train_feature_df =pd.read_csv(r'/home/tahir/Documents/code/tahir/SALT_USWS/sources/train_feature_df.csv')
+train_label_df =pd.read_csv(r'/home/tahir/Documents/code/tahir/SALT_USWS/sources/train_label_df.csv')
 
 #Unwichtige Spalte wird gelöscht
 test_feature_df= test_feature_df.drop(['Unnamed: 0'],axis=1)
@@ -31,6 +33,51 @@ test_label_df= test_label_df.drop(['Unnamed: 0'],axis=1)
 test_df= test_df.drop(['Unnamed: 0'],axis=1)
 train_feature_df= train_feature_df.drop(['Unnamed: 0'],axis=1)
 train_label_df = train_label_df.drop(['Unnamed: 0'],axis=1)
+
+
+def calc_reachability(lat, lon):
+    reachbility = ""
+    under1km = 0
+    under500m = 0
+    under250m = 0
+    coordinates1 = float(lat), float(lon)
+
+    with open('cleanedStops.txt') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        next(csv_reader, None)
+
+        for row in csv_reader:
+            coordinates2 = float(row[4]), float(row[5])
+
+            dist = geopy.distance.geodesic(coordinates1, coordinates2).m
+            dist = int(dist)
+
+            if dist < 250:
+                under250m += 1
+            if dist < 500:
+                under500m += 1
+            if dist < 1000:
+                under1km += 1
+
+        print("under1000m", under1km)
+        print("under500m", under500m)
+        print("under250m", under250m)
+
+        result = (under250m * 6) + (under500m * 3) + (under1km * 1)
+
+        if result > 200:
+            reachbility = "VERY GOOD"
+        if result > 150 and result < 200:
+            reachbility = "GOOD"
+        if result >100 and result < 150:
+            reachbility = "OK"
+        if result <100:
+            reachbility = "BAD"
+        print(result)
+        print("Reachability is " + reachbility)
+
+        return (reachbility)
+
 
 def prediction(latitude,longitude,price,category):
     own_category = category
@@ -128,7 +175,9 @@ def prediction(latitude,longitude,price,category):
     regr.fit(train_feature_df_1, train_label_df)
     predscore = regr.predict([[price,others,own,vietnamese,sushi,pubs,pizza,kebab,italian,
                                icecream,hotdogs,german,divebars,cocktailbars,cafes,burgers,bars,bakeries,distanceToMitte]])
-    return(predscore)
+
+
+    return(round(predscore[0][0],2))
     
 #Gibt eie Dataframe mit nur "Nachbarn" zurück -> soll "prediction" optimieren
 def gettingneighbours(latitude,longitude):

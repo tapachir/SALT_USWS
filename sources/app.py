@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request
 import requests
 #from prediction import prediction
-from code_v42 import prediction
+from code_v4_3 import prediction
+import code_v4_3
 
 
 app = Flask(__name__)
@@ -31,7 +32,8 @@ def result():
       lon = float(data["Response"]["View"][0]["Result"][0]["Location"]["DisplayPosition"]["Longitude"])
       print(lat, lon)
       finalResult = prediction(lat,lon,price,category)
-      return render_template("result.html",result = finalResult)
+      reachability = code_v4_3.calc_reachability(lat,lon)
+      return render_template("result.html",result = finalResult, reachability = reachability)
 
 if __name__ == '__main__':
    app.run(debug = True)
