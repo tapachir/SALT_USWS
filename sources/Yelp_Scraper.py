@@ -165,6 +165,7 @@ def query_api(categories, latitude,longitude,  radius,depth):
 Terms= ["Bars", "Restaurants"]
 # categorie_list =("auto", "beautysvc","arts", "localflavor", "food", "nightlife", "hotelstravel", "religiousorgs", "restaurants", "shopping", "active", "eventservices")
 
+#Center of berlin
 point = (52.5074,13.3904)
 
 
